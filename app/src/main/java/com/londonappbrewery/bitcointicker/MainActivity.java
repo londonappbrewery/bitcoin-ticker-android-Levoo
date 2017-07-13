@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("etherium", "User selected, " + parent.getItemAtPosition(position));
+
+                String url_plus = BASE_URL + parent.getItemAtPosition(position);
+
+                letsDoSomeNetworking(url_plus);
             }
 
             @Override
@@ -77,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // called when response HTTP status is "200 OK"
                 Log.d("ethirum", "JSON: " + response.toString());
+
+                try{
+                    mPriceTextView.setText(response.getString("last"));
+                }catch(JSONException e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
